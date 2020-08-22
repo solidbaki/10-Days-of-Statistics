@@ -1,35 +1,35 @@
-# Enter your code here. Read input from STDIN. Print output to STDOUT
-#Calculate mean,median and mode
-#First input is for array size N, second input is for array elements
 N = int(input())
-set_of_integers = [int(n) for n in input().split()]
-total = 0
+set_of_nums = [int(n) for n in input().split()]
+set_of_nums.sort()
+lower_half = []
+upper_half = []
 
-for i in range(N):
-    total += int(set_of_integers[i])
+def calculate_median(set_of_numbers):
+    if (len(set_of_numbers) % 2 == 0):
+        return int((set_of_numbers[int(len(set_of_numbers)/2)] + set_of_numbers[(int(len(set_of_numbers)/2)-1)]) / 2)
+    elif (len(set_of_numbers) % 2 == 1):
+        return int(set_of_numbers[int((len(set_of_numbers)-1)/2)])
 
-#Calculate mean, print it with one decimal
-mean = total/N
-print(round(mean,1))
+def calculate_lu_halves():
+    #Lower and upper half sizes
+    if (N % 2 == 0):
+        lu_half_sizes = int((N / 2))
+    elif (N % 2 == 1):
+        lu_half_sizes = int((N - 1) / 2 )
 
-#Calculate median, print it with one decimal
-set_of_integers.sort()
-median = (set_of_integers[int(N/2)] + set_of_integers[int((N/2)-1)]) / 2
-print(round(median,1))
+    for i in range(lu_half_sizes):
+        upper_half.append(set_of_nums[i])
+        lower_half.append(set_of_nums[N-1-i])
 
-#Calculate mode, print it 
-list_of_occurences = []
-max_num_of_occurence = 0
+calculate_lu_halves()
+lower_half.sort()
+upper_half.sort()
 
-#Calculating maximum number of occurences
-for num in set_of_integers:
-    list_of_occurences.append(set_of_integers.count(num))
-    if set_of_integers.count(num) >= max_num_of_occurence:
-        max_num_of_occurence = set_of_integers.count(num)
-#Print the first value with the number of occurence
-#Considering the list is already sorted, first value encountered with
-#maximum num of occurence will be the minimum one, which is the one we are looking for
-for i in range(N):
-    if set_of_integers.count(set_of_integers[i]) == max_num_of_occurence:
-        print(set_of_integers[i])
-        break
+#Q1 = calculate_median(upper_half)
+print(round(calculate_median(upper_half)))
+
+#Q2 = calculate_median(set_of_nums)
+print(calculate_median(set_of_nums))
+
+#Q3 = calculate_median(lower_half)
+print(round(calculate_median(lower_half)))
